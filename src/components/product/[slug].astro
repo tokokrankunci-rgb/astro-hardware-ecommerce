@@ -23,7 +23,7 @@ if (error || !product) {
     <h1 class="text-3xl font-bold">{product.name}</h1>
     <p class="text-gray-600 mt-2">SKU: {product.sku}</p>
     <div class="mt-4 text-2xl font-bold text-blue-600">
-      Rp {product.price?.toLocaleString('id-ID')}
+      Rp {product.price_retail?.toLocaleString('id-ID')}
     </div>
     <p class="mt-4">{product.description}</p>
   </main>
