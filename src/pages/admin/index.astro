@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Admin Dashboard">
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold text-slate-900 mb-6">Dashboard Administrator</h1>
+
+    <!-- Quick Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <span class="text-slate-400 text-xs font-semibold block">Total Produk Aktif</span>
+        <span class="text-2xl font-extrabold text-slate-900 mt-1 block">154 Item</span>
+      </div>
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <span class="text-slate-400 text-xs font-semibold block">Pengajuan Akun Kontraktor (B2B)</span>
+        <span class="text-2xl font-extrabold text-amber-600 mt-1 block">8 Verifikasi Pending</span>
+      </div>
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <span class="text-slate-400 text-xs font-semibold block">Pesanan Masuk Hari Ini</span>
+        <span class="text-2xl font-extrabold text-emerald-600 mt-1 block">12 Transaksi</span>
+      </div>
+    </div>
+
+    <!-- Quick Navigation Links -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <a href="/admin/products" class="p-6 bg-slate-900 text-white rounded-2xl hover:bg-slate-800 transition">
+        <h3 class="font-bold text-base mb-1">📦 Kelola Katalog & Stok &rarr;</h3>
+        <p class="text-xs text-slate-400">Tambah produk baru, atur SKU, harga bertingkat B2B, dan update stok gudang.</p>
+      </a>
+      <a href="/admin/b2b-verify" class="p-6 bg-blue-900 text-white rounded-2xl hover:bg-blue-800 transition">
+        <h3 class="font-bold text-base mb-1">📑 Verifikasi Dokumen Kontraktor &rarr;</h3>
+        <p class="text-xs text-blue-200">Cek NPWP, SIUP, dan berikan otorisasi akun B2B untuk harga diskon khusus.</p>
+      </a>
+    </div>
+  </div>
+</BaseLayout>

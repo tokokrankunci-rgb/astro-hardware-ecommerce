@@ -1,11 +1,68 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/product/ProductCard.astro';
+import type { Product } from '../types/ecommerce';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Data Mockup Produk
+const mockProducts: Product[] = [
+  {
+    id: '1',
+    sku: 'LHR-9032-SS',
+    name: 'Dekson Lever Handle Stainless Steel SUS 304 - Set Mortise & Cylinder',
+    slug: 'dekson-lever-handle-sus304',
+    category: 'door-accessories',
+    brand: 'Dekson',
+    price_retail: 450000,
+    price_b2b: 360000,
+    min_order_b2b: 5,
+    weight_gram: 1850,
+    stock: 120,
+    image_url: '/images/placeholder.jpg',
+    description: 'Lever handle berkualitas tinggi dari Dekson dengan garansi mekanis 25 tahun.',
+    specs: { "Material": "SUS 304", "Garansi": "25 Tahun" },
+    warranty: '25 Tahun Garansi Mekanis'
+  },
+  {
+    id: '2',
+    sku: 'MTC-LKC-50MM',
+    name: 'Reallock Mortise Lockcase Pintu Kayu & Aluminium Backset 50mm',
+    slug: 'reallock-mortise-lockcase-50mm',
+    category: 'door-accessories',
+    brand: 'Reallock',
+    price_retail: 280000,
+    price_b2b: 220000,
+    min_order_b2b: 10,
+    weight_gram: 1100,
+    stock: 85,
+    image_url: '/images/placeholder.jpg',
+    description: 'Mortise lockcase standar industri untuk pintu kayu dan profil aluminium.',
+    specs: { "Backset": "50mm", "Material": "Brass & Steel" },
+    warranty: 'Lifetime Warranty'
+  }
+];
+
+const isB2B = true;
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title="Distributor Hardware & Sanitary Ware">
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Hero Banner -->
+    <div class="bg-gradient-to-r from-slate-900 to-blue-900 text-white rounded-2xl p-8 mb-8 shadow-lg">
+      <span class="bg-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Suplier Properti & Kontraktor</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold mt-3 leading-tight">Supply Material Hardware & Sanitary Resmi</h1>
+      <p class="mt-2 text-slate-300 text-sm max-w-2xl">Dapatkan harga diskon grosir, sistem cetak RAB otomatis, dan pengiriman kargo langsung ke lokasi proyek Anda.</p>
+    </div>
+
+    <!-- Product Grid Section -->
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-xl font-bold text-slate-900">Produk Populer & Ready Stock</h2>
+      <a href="#" class="text-blue-600 text-xs font-bold hover:underline">Lihat Semua Kategori &rarr;</a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {mockProducts.map((product) => (
+        <ProductCard product={product} isB2B={isB2B} />
+      ))}
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+// Mockup Data Produk di Dashboard
+const products = [
+  { sku: 'LHR-9032-SS', name: 'Dekson Lever Handle Stainless SUS 304', category: 'Door Accessories', price_retail: 450000, price_b2b: 360000, stock: 120 },
+  { sku: 'MTC-LKC-50MM', name: 'Reallock Mortise Lockcase 50mm', category: 'Door Accessories', price_retail: 280000, price_b2b: 220000, stock: 85 },
+];
+---
+
+<BaseLayout title="Manajemen Produk - Admin">
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-900">Manajemen Stok & Produk</h1>
+        <p class="text-xs text-slate-500">Kelola katalog produk, stok koli, dan skema harga grosir B2B.</p>
+      </div>
+      <a href="/admin/products/add" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs flex items-center gap-1.5 shadow-md">
+        <span>+</span> Tambah Produk Baru
+      </a>
+    </div>
+
+    <!-- Table Product List -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+      <table class="w-full text-left border-collapse text-xs">
+        <thead>
+          <tr class="bg-slate-900 text-slate-200 border-b border-slate-800">
+            <th class="p-3.5 font-semibold">SKU</th>
+            <th class="p-3.5 font-semibold">Nama Produk</th>
+            <th class="p-3.5 font-semibold">Kategori</th>
+            <th class="p-3.5 font-semibold">Harga Eceran (B2C)</th>
+            <th class="p-3.5 font-semibold">Harga B2B (Min. Tier)</th>
+            <th class="p-3.5 font-semibold">Stok</th>
+            <th class="p-3.5 font-semibold text-center">Aksi</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          {products.map(p => (
+            <tr class="hover:bg-slate-50 transition">
+              <td class="p-3.5 font-mono text-slate-600 font-bold">{p.sku}</td>
+              <td class="p-3.5 font-bold text-slate-800">{p.name}</td>
+              <td class="p-3.5 text-slate-500">{p.category}</td>
+              <td class="p-3.5 text-slate-700 font-semibold">Rp {p.price_retail.toLocaleString('id-ID')}</td>
+              <td class="p-3.5 text-blue-600 font-bold">Rp {p.price_b2b.toLocaleString('id-ID')}</td>
+              <td class="p-3.5">
+                <span class="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded text-[10px]">
+                  {p.stock} set
+                </span>
+              </td>
+              <td class="p-3.5 text-center">
+                <button class="text-blue-600 font-semibold hover:underline mr-2">Edit</button>
+                <button class="text-rose-600 font-semibold hover:underline">Hapus</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</BaseLayout>

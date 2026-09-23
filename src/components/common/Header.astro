@@ -1,0 +1,50 @@
+---
+// Pengecekan sederhana role B2B
+const isB2B = true; 
+---
+
+<header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2">
+      <span class="bg-blue-600 text-white font-bold p-2 rounded-lg text-lg">BUILD</span>
+      <span class="font-bold text-xl tracking-tight hidden sm:inline">HARDWARE & SANITARY</span>
+    </a>
+
+    <!-- Search Bar -->
+    <div class="flex-1 max-w-xl relative">
+      <input 
+        type="text" 
+        placeholder="Cari SKU, Engsel, Kloset, Mortise Lockcase..." 
+        class="w-full pl-4 pr-10 py-2 rounded-lg text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+      <span class="absolute right-3 top-2.5 text-slate-400">🔍</span>
+    </div>
+
+    <!-- User Status & Cart -->
+    <div class="flex items-center gap-4 text-sm">
+      {isB2B ? (
+        <div class="bg-emerald-950 border border-emerald-500 text-emerald-400 px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5">
+          <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+          Akun Kontraktor (B2B)
+        </div>
+      ) : (
+        <a href="/account/login" class="text-xs hover:underline text-slate-300">Masuk / Daftar B2B</a>
+      )}
+      <a href="/cart" class="relative font-medium hover:text-blue-400">
+        🛒 Cart <span class="bg-blue-600 text-white text-xs px-1.5 py-0.5 rounded-full">3</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Mega Menu Categories -->
+  <nav class="bg-slate-800 border-t border-slate-700 text-xs sm:text-sm">
+    <div class="max-w-7xl mx-auto px-4 flex gap-6 overflow-x-auto py-2.5 font-medium text-slate-300">
+      <a href="/" class="text-blue-400 font-semibold border-b-2 border-blue-400 pb-0.5">Semua Kategori</a>
+      <a href="/categories/sanitary-ware" class="hover:text-white transition">Sanitary Ware (Toilet & Wastafel)</a>
+      <a href="/categories/sanitary-fitting" class="hover:text-white transition">Sanitary Fitting (Shower & Kran)</a>
+      <a href="/categories/door-accessories" class="hover:text-white transition">Door Accessories (Handle & Lockcase)</a>
+      <a href="/categories/glass-hardware" class="hover:text-white transition">Glass & Aluminium Hardware</a>
+    </div>
+  </nav>
+</header>
