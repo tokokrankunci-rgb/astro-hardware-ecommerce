@@ -2,17 +2,17 @@
 import Layout from '../../layouts/Layout.astro';
 import { supabase } from '../../lib/supabase';
 
-// Ambil parameter slug dari URL (misal: dekson-lever-handle-sus304)
+// 1. Ambil slug dari URL
 const { slug } = Astro.params;
 
-// Cari data produk di Supabase yang kolom slug-nya cocok
+// 2. Ambil data produk berdasarkan slug
 const { data: product, error } = await supabase
   .from('products')
   .select('*')
   .eq('slug', slug)
   .single();
 
-// Jika produk tidak ditemukan di database, tampilkan halaman 404
+// 3. Jika error atau produk tidak ditemukan, kembalikan ke 404
 if (error || !product) {
   return Astro.redirect('/404');
 }
@@ -21,8 +21,8 @@ if (error || !product) {
 <Layout title={product.name}>
   <main class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-bold">{product.name}</h1>
-    <p class="text-gray-600 mt-2">SKU: {product.sku}</p>
-    <div class="mt-4 text-2xl font-bold text-blue-600">
+    <p class="text-gray-500">SKU: {product.sku}</p>
+    <div class="text-2xl font-bold text-blue-600 mt-2">
       Rp {product.price_retail?.toLocaleString('id-ID')}
     </div>
     <p class="mt-4">{product.description}</p>
