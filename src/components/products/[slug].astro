@@ -1,18 +1,17 @@
 ---
+export const prerender = false; // Memaksa halaman dirender secara SSR di Cloudflare
+
 import Layout from '../../layouts/Layout.astro';
 import { supabase } from '../../lib/supabase';
 
-// 1. Ambil slug dari URL
 const { slug } = Astro.params;
 
-// 2. Ambil data produk berdasarkan slug
 const { data: product, error } = await supabase
   .from('products')
   .select('*')
   .eq('slug', slug)
   .single();
 
-// 3. Jika error atau produk tidak ditemukan, kembalikan ke 404
 if (error || !product) {
   return Astro.redirect('/404');
 }
