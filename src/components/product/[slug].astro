@@ -1,94 +1,30 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import Layout from '../../layouts/Layout.astro';
+import { supabase } from '../../lib/supabase';
 
-const isB2B = true;
-const product = {
-  sku: 'LHR-9032-SS',
-  name: 'Lever Handle Pintu Stainless Steel SUS 304 - Set Mortise & Cylinder',
-  brand: 'DEKSON',
-  price_retail: 450000,
-  price_b2b: 360000,
-  weight_kg: 1.85,
-  warranty: 'Garansi Mekanis 25 Tahun',
-  specs: [
-    { label: 'Material Utama', value: 'Stainless Steel Grade SUS 304 (Anti Karat)' },
-    { label: 'Finishing Warna', value: 'Satin Stainless Steel (SSS)' },
-    { label: 'Ukuran Backset Mortise', value: '50 mm / 60 mm' },
-    { label: 'Tipe Silinder Kunci', value: 'Double Cylinder Brass Key (60mm)' },
-    { label: 'Daya Tahan Test Siklus', value: '200.000x Buka Tutup' }
-  ]
-};
+// Ambil parameter slug dari URL (misal: dekson-lever-handle-sus304)
+const { slug } = Astro.params;
+
+// Cari data produk di Supabase yang kolom slug-nya cocok
+const { data: product, error } = await supabase
+  .from('products')
+  .select('*')
+  .eq('slug', slug)
+  .single();
+
+// Jika produk tidak ditemukan di database, tampilkan halaman 404
+if (error || !product) {
+  return Astro.redirect('/404');
+}
 ---
 
-<BaseLayout title={product.name}>
-  <div class="max-w-7xl mx-auto px-4 py-8">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-      
-      <!-- Gallery Column -->
-      <div class="lg:col-span-5 space-y-4">
-        <div class="aspect-square bg-slate-100 rounded-xl border border-slate-200 flex items-center justify-center relative">
-          <span class="bg-slate-900 text-white text-xs px-2.5 py-1 rounded absolute top-3 left-3 font-semibold">SKU: {product.sku}</span>
-          <span class="text-7xl">🚪</span>
-        </div>
-      </div>
-
-      <!-- Detail Info Column -->
-      <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
-        <div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded">{product.brand}</span>
-            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-0.5 rounded">{product.warranty}</span>
-          </div>
-          <h1 class="text-2xl font-bold text-slate-900">{product.name}</h1>
-
-          <!-- Dual Pricing Box -->
-          <div class="mt-6 p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
-            <div class="flex items-baseline justify-between border-b border-slate-200 pb-3">
-              <div>
-                <span class="text-xs text-slate-400 line-through block">Harga Eceran (B2C): Rp {product.price_retail.toLocaleString('id-ID')}</span>
-                <span class="text-3xl font-extrabold text-blue-700">Rp {product.price_b2b.toLocaleString('id-ID')}</span>
-                <span class="text-xs bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded ml-2">Diskon B2B 20%</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Cargo Weight Info -->
-          <div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-center justify-between text-xs">
-            <div>
-              <span class="font-semibold text-slate-800">Estimasi Pengiriman Kargo:</span>
-              <p class="text-slate-500">Berat Item: <b>{product.weight_kg} kg / set</b> (Mendukung JTR, Sentral Cargo, Dakota)</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="space-y-3">
-          <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-blue-600/20 transition">
-            🛒 Tambah ke Keranjang Belanja
-          </button>
-          <div class="grid grid-cols-2 gap-3">
-            <button class="w-full bg-slate-900 text-white font-semibold py-2.5 rounded-xl text-xs">
-              📄 Cetak Draft RAB (PDF)
-            </button>
-            <a href="https://wa.me/6281234567890" target="_blank" class="w-full border border-emerald-600 text-emerald-700 text-center font-semibold py-2.5 rounded-xl text-xs block">
-              💬 Chat Sales WA
-            </a>
-          </div>
-        </div>
-      </div>
+<Layout title={product.name}>
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold">{product.name}</h1>
+    <p class="text-gray-600 mt-2">SKU: {product.sku}</p>
+    <div class="mt-4 text-2xl font-bold text-blue-600">
+      Rp {product.price?.toLocaleString('id-ID')}
     </div>
-
-    <!-- Specs Section -->
-    <div class="mt-8 bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-      <h3 class="text-lg font-bold text-slate-900 mb-4 border-b border-slate-200 pb-2">Spesifikasi Teknis</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-        {product.specs.map(s => (
-          <div class="flex justify-between py-2 border-b border-slate-100">
-            <span class="text-slate-500">{s.label}:</span>
-            <span class="font-semibold text-slate-800">{s.value}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</BaseLayout>
+    <p class="mt-4">{product.description}</p>
+  </main>
+</Layout>
