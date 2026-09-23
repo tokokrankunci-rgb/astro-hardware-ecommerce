@@ -3,7 +3,9 @@ import tailwind from '@astrojs/tailwind';
 import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
-  output: 'server', // <-- Wajib ada untuk SSR
-  adapter: cloudflare(),
+  output: 'server',
+  adapter: cloudflare({
+    imageService: 'cloudflare',
+  }),
   integrations: [tailwind()],
 });
