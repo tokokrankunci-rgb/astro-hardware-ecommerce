@@ -1,29 +1,37 @@
 ---
-export const prerender = false; // Memaksa halaman dirender secara SSR di Cloudflare
+export const prerender = false;
 
-import Layout from '../../layouts/Layout.astro';
 import { supabase } from '../../lib/supabase';
 
 const { slug } = Astro.params;
 
+// Ambil data produk dari Supabase
 const { data: product, error } = await supabase
   .from('products')
   .select('*')
   .eq('slug', slug)
-  .single();
-
-if (error || !product) {
-  return Astro.redirect('/404');
-}
+  .maybeSingle();
 ---
 
-<Layout title={product.name}>
-  <main class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold">{product.name}</h1>
-    <p class="text-gray-500">SKU: {product.sku}</p>
-    <div class="text-2xl font-bold text-blue-600 mt-2">
-      Rp {product.price_retail?.toLocaleString('id-ID')}
-    </div>
-    <p class="mt-4">{product.description}</p>
-  </main>
-</Layout>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Debug Page</title>
+</head>
+<body style="font-family: sans-serif; padding: 2rem; background: #f9fafb;">
+  <h1>Halaman Debugging Product</h1>
+  
+  <p><strong>URL Slug:</strong> {slug}</p>
+  
+  <h2>1. Status Error Supabase:</h2>
+  <pre style="background: #fee2e2; padding: 1rem; border-radius: 8px; color: #991b1b;">
+    {error ? JSON.stringify(error, null, 2) : 'Tidak Ada Error (Null)'}
+  </pre>
+
+  <h2>2. Data Produk dari Supabase:</h2>
+  <pre style="background: #e0f2fe; padding: 1rem; border-radius: 8px; color: #075985;">
+    {product ? JSON.stringify(product, null, 2) : 'Data Produk Tidak Ditemukan (Null)'}
+  </pre>
+</body>
+</html>
