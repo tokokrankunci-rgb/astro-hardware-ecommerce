@@ -1,0 +1,16 @@
+---
+export const prerender = false;
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Keranjang Belanja">
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold text-slate-900 mb-6">Keranjang Belanja</h1>
+    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm text-center py-12">
+      <p class="text-slate-500 text-sm mb-4">Keranjang belanja Anda saat ini masih kosong.</p>
+      <a href="/" class="inline-block bg-blue-600 text-white text-xs font-bold px-5 py-2.5 rounded-lg hover:bg-blue-700 transition-colors">
+        &larr; Kembali Berbelanja
+      </a>
+    </div>
+  </div>
+</BaseLayout>

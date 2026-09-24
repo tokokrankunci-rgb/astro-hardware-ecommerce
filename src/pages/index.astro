@@ -3,7 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProductCard from '../components/products/ProductCard.astro';
 import type { Product } from '../types/ecommerce';
 
-// Data Mockup Produk
 const mockProducts: Product[] = [
   {
     id: '1',
@@ -46,17 +45,14 @@ const isB2B = true;
 
 <BaseLayout title="Distributor Hardware & Sanitary Ware">
   <div class="max-w-7xl mx-auto px-4 py-8">
-    <!-- Hero Banner -->
     <div class="bg-gradient-to-r from-slate-900 to-blue-900 text-white rounded-2xl p-8 mb-8 shadow-lg">
       <span class="bg-blue-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Suplier Properti & Kontraktor</span>
       <h1 class="text-3xl sm:text-4xl font-extrabold mt-3 leading-tight">Supply Material Hardware & Sanitary Resmi</h1>
       <p class="mt-2 text-slate-300 text-sm max-w-2xl">Dapatkan harga diskon grosir, sistem cetak RAB otomatis, dan pengiriman kargo langsung ke lokasi proyek Anda.</p>
     </div>
 
-    <!-- Product Grid Section -->
     <div class="flex items-center justify-between mb-6">
       <h2 class="text-xl font-bold text-slate-900">Produk Populer & Ready Stock</h2>
-      <a href="/products" class="text-blue-600 text-xs font-bold hover:underline">Lihat Semua Kategori &rarr;</a>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
